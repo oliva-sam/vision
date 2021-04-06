@@ -1,49 +1,41 @@
 // Dependencies
 const mongoose = require ("mongoose");
 const express = require ("express");
-const cors = require("cors");
-const passport = require("passport");
-const Strategy = require("passport-local").Strategy;
-const cookieParser = require("cookie-parser");
-const bcrypt = require("bcryptjs");
+const passport = require("./config/passport");
 const session = require("express-session");
-const bodyParser = require("body-parser");
-
-const PORT = process.env.PORT || 3001;
+const compression = require("compression");
+const auth = require("./routes/auth");
 
 const app = express();
 
+const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(cors({
-    origin: "http://localhost:3000", // front-end port
-    credentials: true
-}));
+app.use(compression());
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
-app.use(session({ 
-    secret: "secret",
-    resave: true,
-    saveUninitialized: true
-}));
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use(cookieParser("secret"));
 
+// Database Connection
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/visionDB",
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false
+    }
+);
 
 // Routes
-app.post("/login", (req,res) => {
-    console.log(req.body);
-});
-app.post("/signup", (req,res) => {
-    console.log(req.body);
-});
-app.post("/user", (req,res) => {
-    console.log(req.body);
-});
+app.use("/api/auth", auth);
+app.get("/", (req, res) => res.send("Good Morning,sunshine"));
 
 
 // Listener
-app.listen(PORT, function () {
-    console.log(`Now listening on https://localhost/${PORT}`)
+app.listen(PORT,  () => {
+    console.log(`Now listening on ${PORT}`)
 });

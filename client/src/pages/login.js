@@ -3,10 +3,26 @@ import React, { useState } from "react";
 import {Jumbotron} from "../components/Jumbotron";
 import { Container, Row, Col } from "../components/Grid";
 import { FormBtn, Input } from "../components/Form";
+import API from "../utils/LookupUser";
 
 export function Login () {
-    const [username, setUserName] = useState();
+    const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+
+    const handleUserSubmit = event => {
+        event.preventDefault();
+        const userInfo = { username, password };
+        if (username && password) {
+            API.loginUser(userInfo)
+                .then(res => {console.log(res)})
+                .catch(err=> {
+                    console.log(err);
+                    console.log(err.response);
+                })
+        } else {
+            alert(`please enter a username & password`);
+        }
+    };
 
     return (
         <>
@@ -17,31 +33,29 @@ export function Login () {
                 <h1>Vision</h1>
                 </Col>
             </Row>
-            <Row>
-                <Col size="md-12">
-                <h4>login / signup</h4>
-                </Col>
-            </Row>
 
             <Row>
                 <Col size="md-6">
-                <form>
-                    <Input 
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    />
+                    <h3> log in / Sign Up</h3>
+                    <form onSubmit={handleUserSubmit}>
+                        <Input 
+                        type="text"
+                        name="username"
+                        placeholder="username"
+                        onChange={event =>setUsername(event.target.value)}
+                        />
 
-                    <Input 
-                    type="text"
-                    name="password"
-                    placeholder="password"
-                    />
+                        <Input 
+                        type="text"
+                        name="password"
+                        placeholder="password"
+                        onChange={event => setPassword(event.target.value)}
+                        />
 
-                    <FormBtn>
-                        <p>Sign-Up / Log-In</p>
-                    </FormBtn>
-                </form>
+                        <FormBtn>
+                            <p>Log-In / Sign-Up</p>
+                        </FormBtn>
+                    </form>
                 </Col>
             </Row>
         </Container>

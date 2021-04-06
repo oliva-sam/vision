@@ -16,7 +16,7 @@ router.post("/login", (req, res, next) => {
             }
             return res.status(200).json({success:`logged in ${user.id}`});
         });
-    })(res, res, next);
+    })(req, res, next);
 });
 
 module.exports = router;
