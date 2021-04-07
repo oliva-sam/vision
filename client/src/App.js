@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Login } from "./pages/login";
 import { UserBoard } from "./pages/userBoard";
-
+import { NoBoard } from "./pages/noBoard";
 
 function App() {
   return (
@@ -15,6 +15,10 @@ function App() {
 
         <Route exact path="/user">
           <UserBoard></UserBoard>
+        </Route>
+
+        <Route exact path="/nouser">
+          <NoBoard></NoBoard>
         </Route>
       </Switch>
 
