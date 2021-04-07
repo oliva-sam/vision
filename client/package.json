@@ -4,12 +4,17 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@material-ui/core": "^4.11.3",
+    "@rebass/preset": "^4.0.5",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "emotion-theming": "^11.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.12.2",
     "passport": "^0.4.1",
@@ -18,6 +23,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "rebass": "^4.0.7",
+    "reflexbox": "^4.0.6",
     "web-vitals": "^1.1.1"
   },
   "scripts": {
