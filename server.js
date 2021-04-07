@@ -4,7 +4,7 @@ const express = require ("express");
 const passport = require("./config/passport");
 const session = require("express-session");
 const compression = require("compression");
-const auth = require("./routes/auth");
+const routes = require("./routes/index");
 
 const app = express();
 
@@ -31,9 +31,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/visionDB",
 );
 
 // Routes
-app.use("/api/auth", auth);
-app.get("/", (req, res) => res.send("Good Morning,sunshine"));
-
+app.use(routes);
 
 // Listener
 app.listen(PORT,  () => {
