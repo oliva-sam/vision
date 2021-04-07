@@ -4,8 +4,11 @@ import {Jumbotron} from "../components/Jumbotron";
 import { Container, Row, Col } from "../components/Grid";
 import { FormBtn, Input } from "../components/Form";
 import API from "../utils/LookupUser";
+import {useHistory} from "react-router-dom";
 
 export function Login () {
+    const history = useHistory();
+
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
@@ -14,7 +17,7 @@ export function Login () {
         const userInfo = { username, password };
         if (username && password) {
             API.loginUser(userInfo)
-                .then(res => {console.log(res)})
+                .then(res => {history.push("/user")})
                 .catch(err=> {
                     console.log(err);
                     console.log(err.response);

@@ -13,11 +13,11 @@ function App() {
           <Login></Login>
         </Route>
 
-        <Route exact path="/user">
+        <Route path="/user">
           <UserBoard></UserBoard>
         </Route>
 
-        <Route exact path="/nouser">
+        <Route path="/nouser">
           <NoBoard></NoBoard>
         </Route>
       </Switch>
