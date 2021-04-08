@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
 import { FormBtn, Input, Select } from "../Form";
+import { Wrapper } from "../Wrapper";
 
 export function NewGoal () {
     const [open, setOpen] = React.useState(false);
@@ -17,6 +18,7 @@ export function NewGoal () {
         event.preventDefault();
         console.log("new goal added");
         handleClose();
+        // this is where the post request will go
     }
 
     const body = (
@@ -45,9 +47,11 @@ export function NewGoal () {
 
     return (
         <div>
-            <button type="button" onClick={handleOpen}>
-                Add Goal
-            </button>
+            <Wrapper>
+                <button type="button" onClick={handleOpen}>
+                    Add Goal
+                </button>
+            </Wrapper>
 
             <Modal
                 open={open}
