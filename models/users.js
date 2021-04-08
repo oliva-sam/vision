@@ -16,7 +16,7 @@ const userSchema = new Schema(
         goals: [{
             goal: [{
                 url: String,
-                icon: String,
+                category: String,
                 title: String,
                 tasks: [{
                    task: String,
