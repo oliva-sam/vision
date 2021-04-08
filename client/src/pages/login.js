@@ -6,18 +6,26 @@ import { FormBtn, Input } from "../components/Form";
 import API from "../utils/LookupUser";
 import {useHistory} from "react-router-dom";
 
+
 export function Login () {
     const history = useHistory();
 
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
+    // const [user,setUser] = useState({id:"",name:""})
+
     const handleUserSubmit = event => {
         event.preventDefault();
         const userInfo = { username, password };
         if (username && password) {
             API.loginUser(userInfo)
-                .then(res => {history.push("/user")})
+                .then(res => {
+                //     console.log(res.data.user._id,res.data.user.username)
+                //    setUsername(res.data.user.name)
+                //   setUser({id:res.data.user._id,name:res.data.username})
+                //     console.log(user)
+                    history.push("/user")})
                 .catch(err=> {
                     console.log(err);
                     console.log(err.response);
