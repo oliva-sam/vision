@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Login } from "./pages/login";
 import { UserBoard } from "./pages/userBoard";
 import { NoBoard } from "./pages/noBoard";
+import { NotFound } from "./pages/notFound";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
 
         <Route path="/nouser">
           <NoBoard></NoBoard>
+        </Route>
+
+        <Route>
+          <NotFound></NotFound>
         </Route>
       </Switch>
 
