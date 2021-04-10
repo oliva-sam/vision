@@ -13,16 +13,15 @@ const userSchema = new Schema(
             type: String,
             required: "Please enter a password"
         },
-        goals: [{
-            goal: [{
-                url: String,
-                category: String,
-                title: String,
-                tasks: [{
-                   task: String,
-                }]
+        goal: {
+            url: String,
+            category: String,
+            title: String,
+            tasks: [{
+                task: String,
             }]
-        }]
+
+        }
     }
 );
 

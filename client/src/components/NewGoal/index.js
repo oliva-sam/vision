@@ -2,9 +2,17 @@ import React from "react";
 import Modal from "@material-ui/core/Modal";
 import { FormBtn, Input, Select } from "../Form";
 import { Wrapper } from "../Wrapper";
+import {useState} from "react";
+import API from "../../utils/API";
+
 
 export function NewGoal () {
-    const [open, setOpen] = React.useState(false);
+
+    const [category, setCategory] = useState();
+    const [url, setUrl] = useState();
+    const globalUser = window.$name
+
+    const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
         setOpen(true);
@@ -16,26 +24,38 @@ export function NewGoal () {
 
     const handleNewGoalSubmit = event => {
         event.preventDefault();
-        console.log("new goal added");
+        console.log(globalUser, category, url);
+        const newGoal = {globalUser, category, url};
+        if (category && url) {
+            API.saveGoal(newGoal)
+            .then(res => console.log(res))
+            .catch(err=>console.log(err))
+        } else {
+            alert(`please fill everything out`)
+        }
         handleClose();
-        // this is where the post request will go
     }
 
     const body = (
         <>
         <h3>Select a category and add a picture</h3>
         <form onSubmit={handleNewGoalSubmit}>
-            <Select>
-                <option>Education</option>
-                <option>Financial</option>
-                <option>Wellness</option>
+            <Select 
+            onChange={event=>setCategory(event.target.value)}>
+                <option value="career">Career</option>
+                <option value="education">Education</option>
+                <option value="family">Family</option>
+                <option value="financial">Financial</option>
+                <option value="personal">Personal</option>
+                <option value="wellness">Wellness</option>
             </Select>
 
             <Input
                 type="text"
                 name="picture"
-                placeholder="text placeholder for picture upload"
-            ></Input>
+                placeholder="enter url of image"
+                onChange={event=>setUrl(event.target.value)}
+            />
 
             <FormBtn>
                 <p>save</p>

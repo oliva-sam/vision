@@ -14,7 +14,8 @@ router.post("/login", (req, res, next) => {
                 return res.status(400).json({errors:err});
             }
             return (
-                res.status(200).json({success:`logged in ${user.id}`})
+                res.status(200).json({success: user.username})
+                // res.redirect(('/user/' + user.username))
             );
         });
     })(req, res, next);

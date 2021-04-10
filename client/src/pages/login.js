@@ -1,10 +1,10 @@
 //import { use } from "passport";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {Jumbotron} from "../components/Jumbotron";
 import { Container, Row, Col } from "../components/Grid";
 import { FormBtn, Input } from "../components/Form";
-import API from "../utils/LookupUser";
-import {useHistory} from "react-router-dom";
+import API from "../utils/API";
+import {useHistory, Redirect, Route} from "react-router-dom";
 
 
 export function Login () {
@@ -13,19 +13,16 @@ export function Login () {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
-    // const [user,setUser] = useState({id:"",name:""})
-
     const handleUserSubmit = event => {
         event.preventDefault();
         const userInfo = { username, password };
         if (username && password) {
             API.loginUser(userInfo)
                 .then(res => {
-                //     console.log(res.data.user._id,res.data.user.username)
-                //    setUsername(res.data.user.name)
-                //   setUser({id:res.data.user._id,name:res.data.username})
-                //     console.log(user)
-                    history.push("/user")})
+                    console.log(res)
+                    window.$name = res.data.success
+                    history.push("/user/" + res.data.success)
+                })
                 .catch(err=> {
                     console.log(err);
                     console.log(err.response);
