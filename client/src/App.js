@@ -14,7 +14,7 @@ function App() {
           <Login></Login>
         </Route>
 
-        <Route path="/user">
+        <Route path="/user/:username">
           <UserBoard></UserBoard>
         </Route>
 
