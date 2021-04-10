@@ -1,10 +1,10 @@
 //import { use } from "passport";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {Jumbotron} from "../components/Jumbotron";
 import { Container, Row, Col } from "../components/Grid";
 import { FormBtn, Input } from "../components/Form";
 import API from "../utils/API";
-import {useHistory, Redirect, Route} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 
 export function Login () {

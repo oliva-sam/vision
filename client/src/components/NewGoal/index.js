@@ -10,24 +10,24 @@ export function NewGoal () {
 
     const [category, setCategory] = useState();
     const [url, setUrl] = useState();
-    const globalUser = window.$name
 
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
         setOpen(true);
     };
-
     const handleClose = () => {
         setOpen(false);
     };
 
     const handleNewGoalSubmit = event => {
         event.preventDefault();
-        console.log(globalUser, category, url);
-        const newGoal = {globalUser, category, url};
+        console.log(category, url);
+        const newGoal = { category: category, url: url };
+        const user = window.$name;
+        console.log(user);
         if (category && url) {
-            API.saveGoal(newGoal)
+            API.saveGoal( user, newGoal)
             .then(res => console.log(res))
             .catch(err=>console.log(err))
         } else {

@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const passport = require("passport");
+const goalsController = require("../../controllers/goalsController");
 
+//////// PASSPORT BOILERPLATE
 router.post("/login", (req, res, next) => {
     passport.authenticate("local", function(err, user, info) {
         if(err) {
@@ -15,10 +17,16 @@ router.post("/login", (req, res, next) => {
             }
             return (
                 res.status(200).json({success: user.username})
-                // res.redirect(('/user/' + user.username))
             );
         });
     })(req, res, next);
 });
+
+///// APPLICATION 
+
+router.route("/goals/:username")
+    .post(goalsController.createGoal);
+
+
 
 module.exports = router;

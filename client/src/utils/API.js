@@ -6,7 +6,7 @@ export default {
         return axios.post("/api/login", userInfo)
     },
     // posts a goal
-    saveGoal: function(goalInfo) {
-        return axios.put("/api/goals", goalInfo)
+    saveGoal: function(username, goalInfo) {
+        return axios.post("/api/goals/" + username, goalInfo)
     }
 }
