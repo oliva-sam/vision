@@ -4,7 +4,8 @@ module.exports = {
     createGoal: function(req, res) {
         const newGoalInfo = {
             "category" : req.body.category, 
-            "url" : req.body.url
+            "url" : req.body.url,
+            "tasks" : []
         }     
         const cloneUser = JSON.parse(JSON.stringify(req.user));
         cloneUser.goals.push(newGoalInfo)
