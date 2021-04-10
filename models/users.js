@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+const GoalSchema = require("./goals").schema
+
 const userSchema = new Schema(
     {
         username: {
@@ -13,15 +15,7 @@ const userSchema = new Schema(
             type: String,
             required: "Please enter a password"
         },
-        goal: {
-            url: String,
-            category: String,
-            title: String,
-            tasks: [{
-                task: String,
-            }]
-
-        }
+        goals: [GoalSchema]
     }
 );
 
