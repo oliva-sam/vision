@@ -25,7 +25,8 @@ router.post("/login", (req, res, next) => {
 ///// APPLICATION 
 
 router.route("/goals/:username")
-    .post(goalsController.createGoal);
+    .post(goalsController.createGoal)
+    .get(goalsController.findGoals);
 
 
 

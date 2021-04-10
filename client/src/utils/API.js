@@ -8,5 +8,9 @@ export default {
     // posts a goal
     saveGoal: function(username, goalInfo) {
         return axios.post("/api/goals/" + username, goalInfo)
+    },
+    // gets users goals
+    getGoals: function(username) {
+        return axios.get("/api/goals/" + username)
     }
 }
