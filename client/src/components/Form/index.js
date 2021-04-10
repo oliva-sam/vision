@@ -19,7 +19,7 @@ export function FormBtn(props) {
 export function Select(props) {
     return (
         <div className="form-group">
-            <select className = "form-control" {...props}>
+            <select multiple className = "form-control" {...props}>
                 {props.children}
             </select>
         </div>

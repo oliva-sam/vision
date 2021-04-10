@@ -8,14 +8,6 @@ export function GoalCard(props) {
             <div className="img-container">
                 <img alt={props.name} src={PlaceholderImg}/>
             </div>
-            <div className="content">
-                <ul>
-                    <li>
-                        <strong>Category:</strong> {props.category}
-                    </li>
-                </ul>
-            </div>
-            
         </div>
     )
 }
