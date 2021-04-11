@@ -1,7 +1,8 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import { FormBtn, Input, Select } from "../Form";
-import { Wrapper } from "../Wrapper";
 import {useState} from "react";
 import API from "../../utils/API";
 
@@ -67,11 +68,9 @@ export function NewGoal () {
 
     return (
         <div>
-            <Wrapper>
-                <button type="button" onClick={handleOpen}>
-                    Add Goal
-                </button>
-            </Wrapper>
+            <Fab color="primary" aria-label="Add">
+                <AddIcon onClick={handleOpen}/>
+            </Fab>
 
             <Modal
                 open={open}
