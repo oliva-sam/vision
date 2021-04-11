@@ -7,6 +7,7 @@ export function GoalCard(props) {
         <div className="card">
             <div className="img-container">
                 <img alt={props.name} src={props.url}/>
+                {props.children}
             </div>
         </div>
     )
