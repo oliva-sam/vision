@@ -31,6 +31,10 @@ router.route("/goals/:username")
 router.route("/goal/:id")
     .delete(goalsController.removeGoal)
 
+router.route("/goal/tasks/:id")
+    .post(goalsController.createTask)
+
+
 
 
 module.exports = router;
