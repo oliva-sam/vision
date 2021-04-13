@@ -21,5 +21,8 @@ export default {
     // posts a users task / step
     saveTask: function(id, task) {
         return axios.post("/api/goal/tasks/" + id, task)
+    },
+    getTasks: function(id) {
+        return axios.get("/api/goal/tasks/" + id)
     }
 }

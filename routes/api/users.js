@@ -33,8 +33,7 @@ router.route("/goal/:id")
 
 router.route("/goal/tasks/:id")
     .post(goalsController.createTask)
-
-
+    .get(goalsController.findTasks)
 
 
 module.exports = router;

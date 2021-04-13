@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -37,21 +37,22 @@ export function NewTask(props) {
         }
     }));
     const classes = useStyles();
-    const [checked, setChecked] = React.useState([0]);
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-        newChecked.push(value);
+    const [checked, setChecked] = useState(false);
+    const handleToggle = () => {
+        if(!checked) {
+            setChecked(true)
         } else {
-        newChecked.splice(currentIndex, 1);
+            setChecked(false)
         }
-
-        setChecked(newChecked);
     };
 
-    const handleNewTaskSubmit = () => {
+    const loadtasks = (id) => {
+        API.getTasks(id)
+            .then(res=>setTasks(res.data))
+            .catch(err=>console.log(err))
+    };
+
+    const handleNewTaskSubmit = async () => {
         if(newTask) {
             const newTaskInfo = {
                 title: newTask
@@ -60,10 +61,11 @@ export function NewTask(props) {
             API.saveTask(goalId, newTaskInfo)
              .then(res => console.log(res))
              .catch(err => console.log(err))
+             window.location.reload("/user/" + username)
         } else {
             alert("please fill in a new step")
         }
-    }
+    };
 
 
     const body = (
@@ -75,24 +77,19 @@ export function NewTask(props) {
                     </ListItem>
                 </List>
                 <Divider />
-                {[0, 1, 2, 3].map((value) => {
-                    const labelId = `checkbox-list-label-${value}`;
-
+                {tasks.map(task => {
                     return (
                     <ListItem
-                        key={value}
-                        role={undefined}
+                        key={task._id}
                         dense
                         button
-                        onClick={handleToggle(value)}
                     >
                         <Checkbox
                         edge="start"
-                        checked={checked.indexOf(value) !== -1}
-                        tabIndex={-1}
-                        inputProps={{ "aria-labelledby": labelId }}
+                        onChange={handleToggle}
+                        inputProps={{ "aria-labelledby": "primary checkbox" }}
                         />
-                        <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                        <ListItemText id={task._id} primary={task.title} />
                     </ListItem>
                     );
                 })}
@@ -118,8 +115,11 @@ export function NewTask(props) {
 
     return (
         <>
-        <button                                 
-        onClick={handleOpen}>
+        <button                                
+        onClick={() => {
+            handleOpen();
+            loadtasks(props.id)
+            }}>
         <ListIcon/>
         </button>
         <Modal
