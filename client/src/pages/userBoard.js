@@ -48,7 +48,7 @@ export function UserBoard() {
             flexWrap: 'wrap',
             justifyContent: 'space-around',
             overflow: 'hidden',
-            backgroundColor: theme.palette.background.paper,
+            backgroundColor: "none",
         },
         gridList: {
             width: 3000,
@@ -68,8 +68,13 @@ export function UserBoard() {
 
     return (
         <>
-            <Jumbotron></Jumbotron>
-            < Container  >
+
+            < Container className="fluid">
+                <Row>
+                    <Col size="md-12">
+                     <Jumbotron></Jumbotron>
+                    </Col>
+                </Row>
                 <Row>
                     <Col size="md-12">
                         < NewGoal></NewGoal>

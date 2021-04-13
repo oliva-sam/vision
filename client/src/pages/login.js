@@ -34,17 +34,12 @@ export function Login () {
 
     return (
         <>
-        <Jumbotron></Jumbotron>
         <Container className="fluid">
+         <Jumbotron></Jumbotron>
             <Row>
-                <Col size="md-12">
-                <h1>Vision</h1>
-                </Col>
-            </Row>
-
-            <Row>
-                <Col size="md-6">
-                    <h3> log in / Sign Up</h3>
+                <Col size="md-4"></Col>
+                <Col size="md-4">
+                    <h1>Vision</h1>
                     <form onSubmit={handleUserSubmit}>
                         <Input 
                         type="text"
@@ -65,6 +60,7 @@ export function Login () {
                         </FormBtn>
                     </form>
                 </Col>
+                <Col size="md-4"></Col>
             </Row>
         </Container>
         </>
