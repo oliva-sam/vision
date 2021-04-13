@@ -3,12 +3,14 @@ import { Jumbotron } from "../components/Jumbotron";
 import { Container, Row, Col } from "../components/Grid";
 import { NewGoal } from "../components/NewGoal";
 import { NewTask } from "../components/NewTask";
-import { Wrapper } from "../components/Wrapper";
-import { GoalCard } from "../components/GoalCard";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import IconButton from '@material-ui/core/IconButton';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-// import { List, Item } from "../components/List";
 
 import API from "../utils/API";
 
@@ -31,21 +33,43 @@ export function UserBoard() {
         API.deleteGoal(id)
             .then(res => {
                 API.getGoals(username)
-                .then(res =>
-                    setGoals(res.data)
-                )
-                .catch(err => console.log(err));
+                    .then(res =>
+                        setGoals(res.data)
+                    )
+                    .catch(err => console.log(err));
                 window.location.reload("/user/" + username)
             })
             .catch(err => console.log(err));
     };
 
-    // console.log(goals);
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+            overflow: 'hidden',
+            backgroundColor: theme.palette.background.paper,
+        },
+        gridList: {
+            width: 3000,
+            height: 1000,
+        },
+        titleBar: {
+            background:
+              'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+              'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+          },
+        icon:{
+            color:"gray",
+        }
+    }));
+
+    const classes = useStyles();
 
     return (
         <>
             <Jumbotron></Jumbotron>
-            < Container className="fluid" >
+            < Container  >
                 <Row>
                     <Col size="md-12">
                         < NewGoal></NewGoal>
@@ -55,27 +79,39 @@ export function UserBoard() {
                 <Row>
                     <Col size="md-12">
                         {goals.length ? (
+                            <div className={classes.root}>
+                                <GridList cellheight={1000} className={classes.gridList} cols={3}>
+                                    {goals.map(goal => (
+                                        <GridListTile key={goal._id} cols={1}>
+                                            <img src={goal.url} alt={goal.category} />
+                                            <GridListTileBar
+                                                title={goal.category}
+                                                titlePosition="top"
+                                                style={{background: "none"}}
+                                                actionIcon={
+                                                    <IconButton className={classes.icon} onClick={() => deleteGoal(goal._id)}>
+                                                        <DeleteForeverIcon/>
+                                                    </IconButton>
+                                                }
+                                                />
+                                            <GridListTileBar
+                                                titlePosition="bottom"
+                                                style={{background: "none"}}
+                                                actionIcon={
+                                                    <IconButton className={classes.icon} >
+                                                         <NewTask
+                                                            id={goal._id}
+                                                            category={goal.category}
+                                                         />
+                                                    </IconButton>
+                                                }
+                                                />
 
-                            <Wrapper>
-                                {goals.map(goal => (
-                                    <GoalCard key={goal._id}
-                                        name={goal.category}
-                                        url={goal.url}
-                                    >
-                                        <button
-                                            onClick={() => deleteGoal(goal._id)}>
-                                            <DeleteForeverIcon />
-                                        </button>
+                                            </GridListTile>
+                                    ))}
+                                </GridList>
+                            </div>
 
-                                        <NewTask
-                                            id={goal._id}
-                                            category={goal.category}
-                                        ></NewTask>
-
-                                    </GoalCard>
-                                ))}
-
-                            </Wrapper>
                         ) : (
                             <p>  </p>
                         )}

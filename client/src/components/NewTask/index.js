@@ -115,13 +115,14 @@ export function NewTask(props) {
 
     return (
         <>
-        <button                                
-        onClick={() => {
-            handleOpen();
-            loadtasks(props.id)
-            }}>
-        <ListIcon/>
-        </button>
+                  
+        <ListIcon 
+                onClick={() => {
+                    handleOpen();
+                    loadtasks(props.id)
+                    }}
+        />
+
         <Modal
             open={open}
             onClose={handleClose}
