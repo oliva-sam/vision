@@ -19,7 +19,7 @@ export function Login () {
         if (username && password) {
             API.loginUser(userInfo)
                 .then(res => {
-                    console.log(res)
+                    // console.log(res)
                     window.$name = res.data.success
                     history.push("/user/" + res.data.success)
                 })
@@ -49,14 +49,14 @@ export function Login () {
                         />
 
                         <Input 
-                        type="text"
+                        type="password"
                         name="password"
                         placeholder="password"
                         onChange={event => setPassword(event.target.value)}
                         />
 
                         <FormBtn>
-                            <p>Log-In / Sign-Up</p>
+                            <p>Log-In/Sign-Up</p>
                         </FormBtn>
                     </form>
                 </Col>

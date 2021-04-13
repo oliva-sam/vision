@@ -53,15 +53,15 @@ export function NewGoal() {
 
     const handleNewGoalSubmit = event => {
         event.preventDefault();
-        console.log(category, url);
+        // console.log(category, url);
         const newGoal = { category: category, url: url };
         const user = window.$name;
-        console.log(user);
+        // console.log(user);
         if (category && url) {
             API.saveGoal(user, newGoal)
                 .then(res => {
                     window.location.reload("/user/" + user)
-                    console.log(res)
+                    // console.log(res)
                 })
                 .catch(err => console.log(err))
         } else {
