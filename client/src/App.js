@@ -4,6 +4,7 @@ import { Login } from "./pages/login";
 import { UserBoard } from "./pages/userBoard";
 import { NoBoard } from "./pages/noBoard";
 import { NotFound } from "./pages/notFound";
+import "./App.css";
 
 function App() {
   return (
