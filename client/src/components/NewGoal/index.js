@@ -29,7 +29,10 @@ export function NewGoal () {
         console.log(user);
         if (category && url) {
             API.saveGoal( user, newGoal)
-            .then(res => console.log(res))
+            .then(res => {
+                window.location.reload("/user/" + user)
+                console.log(res)
+            })
             .catch(err=>console.log(err))
         } else {
             alert(`please fill everything out`)

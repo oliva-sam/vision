@@ -1,83 +1,90 @@
 import React from "react";
 import { Jumbotron } from "../components/Jumbotron";
-import { Container, Row, Col} from "../components/Grid";
+import { Container, Row, Col } from "../components/Grid";
 import { NewGoal } from "../components/NewGoal";
 import { NewTask } from "../components/NewTask";
 import { Wrapper } from "../components/Wrapper";
 import { GoalCard } from "../components/GoalCard";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 // import { List, Item } from "../components/List";
 
 import API from "../utils/API";
 
-export function UserBoard () {
+export function UserBoard() {
     const [goals, setGoals] = useState([]);
     const { username } = useParams();
     // console.log(username);
 
     useEffect(() => {
+        function loadGoals() {
+            API.getGoals(username)
+                .then(res =>
+                    setGoals(res.data)
+                )
+                .catch(err => console.log(err));
+        };
         loadGoals()
-    },[]); 
+    }, [username, goals]);
 
-    function loadGoals() {
-        API.getGoals(username)
-            .then(res => 
-                setGoals(res.data)
-            )
+    function deleteGoal(id) {
+        API.deleteGoal(id)
+            .then(res => {
+                API.getGoals(username)
+                .then(res =>
+                    setGoals(res.data)
+                )
+                .catch(err => console.log(err));
+                window.location.reload("/user/" + username)
+            })
             .catch(err => console.log(err));
     };
 
-    function deleteGoal(id) {
-        console.log("goal deleted")
-        console.log(id);
-    };
-
     // console.log(goals);
-        
+
     return (
         <>
-        <Jumbotron></Jumbotron>
-        < Container className="fluid" >
-             <Row>
-                <Col size="md-12">
-                < NewGoal></NewGoal>
-                </Col>
-            </Row>
+            <Jumbotron></Jumbotron>
+            < Container className="fluid" >
+                <Row>
+                    <Col size="md-12">
+                        < NewGoal></NewGoal>
+                    </Col>
+                </Row>
 
-            <Row>
-                <Col size="md-12">
-                {goals.length ? (
+                <Row>
+                    <Col size="md-12">
+                        {goals.length ? (
 
-                <Wrapper>
-                    {goals.map(goal => (
-                        <GoalCard key={goal._id}
-                            name={goal.category}
-                            url={goal.url} 
-                        >
-                            <button                                 
-                            onClick={() => deleteGoal(goal._id)}>
-                            <DeleteForeverIcon />
-                            </button>
+                            <Wrapper>
+                                {goals.map(goal => (
+                                    <GoalCard key={goal._id}
+                                        name={goal.category}
+                                        url={goal.url}
+                                    >
+                                        <button
+                                            onClick={() => deleteGoal(goal._id)}>
+                                            <DeleteForeverIcon />
+                                        </button>
 
-                            <NewTask
-                            id={goal._id}
-                            category={goal.category}
-                            ></NewTask>
+                                        <NewTask
+                                            id={goal._id}
+                                            category={goal.category}
+                                        ></NewTask>
 
-                        </GoalCard>
-                    ))}
-                    
-                </Wrapper>
-                )  : (
-                    <p>  </p>
-                )}
+                                    </GoalCard>
+                                ))}
 
-                </Col>
-            </Row>
+                            </Wrapper>
+                        ) : (
+                            <p>  </p>
+                        )}
 
-        </Container>        
+                    </Col>
+                </Row>
+
+            </Container>
         </>
     );
 }

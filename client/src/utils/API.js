@@ -12,5 +12,9 @@ export default {
     // gets users goals
     getGoals: function(username) {
         return axios.get("/api/goals/" + username)
+    },
+    // deletes a users goal
+    deleteGoal: function(id) {
+        return axios.delete("/api/goal/" + id)
     }
 }

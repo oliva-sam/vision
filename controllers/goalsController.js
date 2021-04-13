@@ -21,6 +21,14 @@ module.exports = {
          .findOne({"username" : req.user.username})
          .then(dbModel => res.json(dbModel.goals))
          .catch(err => res.status(422).json(err))   
+    },
+
+    removeGoal: function(req,res) {
+        Users
+            .findOneAndUpdate({"username": req.user.username}, {$pull: {"goals":{"_id": req.params.id}}}) 
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err))
+      
     }
 
 };
