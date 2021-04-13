@@ -15,6 +15,33 @@ import {useState} from "react";
 import { useParams } from "react-router-dom";
 import API from "../../utils/API";
 
+
+function rand() {
+    return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+    const top = 50 + rand();
+    const left = 50 + rand();
+
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+    };
+}
+
+const useStyles2 = makeStyles((theme) => ({
+    paper: {
+        position: 'absolute',
+        width: 500,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+}));
+
 export function NewTask(props) {
     const { username } = useParams();
     const [tasks, setTasks] = useState([]);
@@ -36,6 +63,10 @@ export function NewTask(props) {
           backgroundColor: theme.palette.background.paper
         }
     }));
+
+    const classes2 = useStyles2();
+    const [modalStyle] = useState(getModalStyle);
+
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
     const handleToggle = () => {
@@ -69,11 +100,11 @@ export function NewTask(props) {
 
 
     const body = (
-        <>
+        <div style={modalStyle} className={classes2.paper}>
             <List className={classes.root}>
                 <List component="nav" aria-label="main mailbox folders">
                     <ListItem button>
-                    <ListItemText> {props.category} </ListItemText>
+                    <ListItemText style={{color:"black"}}> {props.category} </ListItemText>
                     </ListItem>
                 </List>
                 <Divider />
@@ -89,7 +120,7 @@ export function NewTask(props) {
                         onChange={handleToggle}
                         inputProps={{ "aria-labelledby": "primary checkbox" }}
                         />
-                        <ListItemText id={task._id} primary={task.title} />
+                        <ListItemText style={{color:"black"}}id={task._id} primary={task.title} />
                     </ListItem>
                     );
                 })}
@@ -109,7 +140,7 @@ export function NewTask(props) {
 
 
             </List>
-        </>
+        </div>
     );
     
 
