@@ -1,0 +1,22 @@
+:root {
+    --myblue: rgb(26, 57, 87);
+    --white: rgb(236,236,246);
+}
+
+body {
+    background: var(--background-color)!important;
+    color: var(--text-color)!important;
+    font-weight: var(--font-weight);
+}
+
+body.light {
+    --background-color: var(--white);
+    --text-color: var(--myblue);
+    --font-weight: 400;
+}
+
+body.dark {
+    --background-color: var(--myblue)!important;
+    --text-color: var(--white)!important;
+    --font-weight: 500;
+}
