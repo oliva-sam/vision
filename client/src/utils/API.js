@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 
 export default {
@@ -16,5 +17,9 @@ export default {
     // deletes a users goal
     deleteGoal: function(id) {
         return axios.delete("/api/goal/" + id)
+    },
+    // posts a users task / step
+    saveTask: function(id, task) {
+        return axios.post("/api/goal/tasks/" + id, task)
     }
 }

@@ -7,16 +7,18 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Divider from "@material-ui/core/Divider";
 import ListIcon from '@material-ui/icons/List';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import { green } from '@material-ui/core/colors';
 import { FormBtn, Input, Select } from "../Form";
 import {useState} from "react";
+import { useParams } from "react-router-dom";
 import API from "../../utils/API";
 
 export function NewTask(props) {
-    const [tasks, setTasks] = useState();
+    const { username } = useParams();
+    const [tasks, setTasks] = useState([]);
+    const [newTask, setNewTask] = useState();
 
     const [open, setOpen] = useState(false);
 
@@ -26,17 +28,6 @@ export function NewTask(props) {
     const handleClose = () => {
         setOpen(false);
     };
-
-
-    function handleSomething(id) {
-        console.log("new task")
-        console.log("this is the id of the goal" + id)
-        handleClose();
-    };
-
-    function addTask() {
-        console.log("add task");
-    }
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -60,11 +51,23 @@ export function NewTask(props) {
         setChecked(newChecked);
     };
 
+    const handleNewTaskSubmit = () => {
+        if(newTask) {
+            const newTaskInfo = {
+                title: newTask
+            }
+            const goalId = props.id
+            API.saveTask(goalId, newTaskInfo)
+             .then(res => console.log(res))
+             .catch(err => console.log(err))
+        } else {
+            alert("please fill in a new step")
+        }
+    }
+
 
     const body = (
         <>
-            <h3>hi</h3>
-            <button onClick={() => handleSomething(props.id)}>Done with tasks</button>
             <List className={classes.root}>
                 <List component="nav" aria-label="main mailbox folders">
                     <ListItem button>
@@ -90,13 +93,23 @@ export function NewTask(props) {
                         inputProps={{ "aria-labelledby": labelId }}
                         />
                         <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                        {/* <DeleteForeverIcon /> */}
                     </ListItem>
                     );
                 })}
-                <Fab color="secondary" aria-label="Add">
-                 <AddIcon onClick={addTask}/>
-                </Fab>
+
+                    <Input
+                        type="text"
+                        name="task-placeholder"
+                        placeholder="new step"
+                        onChange={event=>setNewTask(event.target.value)}
+                        style={{width:"70%"}}
+                    >
+                    </Input>
+                    <Fab color="secondary" aria-label="Add">
+                        <AddIcon onClick={handleNewTaskSubmit}/>
+                    </Fab>
+
+
 
             </List>
         </>

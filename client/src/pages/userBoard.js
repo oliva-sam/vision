@@ -15,7 +15,6 @@ import API from "../utils/API";
 export function UserBoard() {
     const [goals, setGoals] = useState([]);
     const { username } = useParams();
-    // console.log(username);
 
     useEffect(() => {
         function loadGoals() {
@@ -26,7 +25,7 @@ export function UserBoard() {
                 .catch(err => console.log(err));
         };
         loadGoals()
-    }, [username, goals]);
+    }, []);
 
     function deleteGoal(id) {
         API.deleteGoal(id)
