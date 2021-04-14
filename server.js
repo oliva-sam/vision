@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === "production") {
   }
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/visionDB",
+mongoose.connect("mongodb+srv://olivasam:olivasam@cluster0.zrmvt.mongodb.net/visionDB?retryWrites=true&w=majority",
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
