@@ -29,9 +29,9 @@ passport.use(
             .then(user => {
               return done(null, user);
             })
-            // .catch(err => {
-            //   return done(null, false, {message: err});
-            // });
+            .catch(err => {
+              return done(null, false, {message: err});
+            });
          });
        });
      } else {
@@ -45,9 +45,9 @@ passport.use(
        });
      }
    })
-    // .catch(err => {
-    //   return done(null, false, {message:err });
-    // });
+    .catch(err => {
+      return done(null, false, {message:err });
+    });
   })
 );
 
