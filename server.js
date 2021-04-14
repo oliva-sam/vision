@@ -25,14 +25,16 @@ if (process.env.NODE_ENV === "production") {
   }
 
 // Database Connection
-mongoose.connect("mongodb+srv://olivasam:olivasam@cluster0.zrmvt.mongodb.net/visionDB?retryWrites=true&w=majority",
+mongoose.connect(
+    process.env.MONGODB_URI, //|| 'mongodb://localhost/visionDB',
     {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: false
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false
     }
-);
+  );
+  
 
 // Routes
 app.use(routes);

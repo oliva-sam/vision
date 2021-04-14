@@ -18,6 +18,7 @@ passport.use(
     User.findOne( {username: username })
    .then(user => {
      if (!user) {
+       console.log("no user found")
        const newUser=new User( {username, password});
        bcrypt.genSalt(10, (err,salt) => {
          bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -28,9 +29,9 @@ passport.use(
             .then(user => {
               return done(null, user);
             })
-            .catch(err => {
-              return done(null, false, {message: err});
-            });
+            // .catch(err => {
+            //   return done(null, false, {message: err});
+            // });
          });
        });
      } else {
@@ -44,9 +45,9 @@ passport.use(
        });
      }
    })
-    .catch(err => {
-      return done(null, false, {message:err });
-    });
+    // .catch(err => {
+    //   return done(null, false, {message:err });
+    // });
   })
 );
 
