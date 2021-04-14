@@ -21,7 +21,7 @@ export function Login () {
                 .then(res => {
                     // console.log(res)
                     window.$name = res.data.success
-                    window.location.href = ("/user/" + res.data.success)
+                    history.push("/user/" + res.data.success)
                 })
                 .catch(err=> {
                     console.log(err);
